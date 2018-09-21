@@ -1,0 +1,37 @@
+// fade
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition-property: opacity;
+    transition-duration: .5s;
+  }
+
+  &-enter-active {
+    transition-delay: .2s;
+  }
+
+  &-enter,
+  &-leave-active {
+    opacity: 0;
+  }
+}
+
+
+// fade up
+.fade-up {
+  &-enter-active,
+  &-leave-active {
+    transition-property: opacity;
+    transition-duration: .1s;
+  }
+
+  &-enter-active {
+    transition-delay: .2s;
+  }
+
+  &-enter,
+  &-leave-active {
+    opacity: 0;
+    transform: translateY(50);
+  }
+}
