@@ -7,10 +7,10 @@
       <th></th>
     </tr>
     <tr v-for="item in repo" :key="item.name">
-      <td><a :href="item.url">{{item.name}}</a></td>
+      <td ><a class="repo" :href="item.url">{{item.name}}</a></td>
       <td>{{item.language}}</td>
       <td>{{item.releaseTag}}</td>
-      <td><a href="">Add</a></td>
+      <td><a href="#" @click="onButtonClick(item.id)">{{!isFavorite? (item.favorited? "" : "Add") : "Remove"}}</a></td>
     </tr>
   </table>
 </template>
@@ -19,16 +19,27 @@
 export default {
   name: "AppTable",
   props: {
+    isFavorite: {
+      type: Boolean,
+      require: false,
+      default: false
+    },
     repo: {
       type: Array,
       required: false,
       default: () => []
+    }
+  },
+  methods: {
+    onButtonClick(id) {
+      this.$emit("rowClicked", id, this.isFavorite);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../scss/colour.scss";
 .table {
   overflow-x: auto;
   width: 90%;
@@ -39,5 +50,8 @@ export default {
     padding: 5px;
     width: 33.3%;
   }
+}
+.repo {
+  color: $black;
 }
 </style>

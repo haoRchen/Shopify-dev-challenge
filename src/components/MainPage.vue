@@ -6,12 +6,12 @@
     <div class="content__data ">
       <!-- Column for displaying the table for fetched results -->
       <div class="content__results">
-        <app-search-bar @clicked="findRepositories"/>
-        <app-table :repo="repositories"/>
+        <app-search-bar @searching="findRepositories" @emptyInputField="clearRepositories"/>
+        <app-table :repo="repositories" @rowClicked="updateRow"/>
       </div>
       <!-- Column for displaying the table for favorited repository -->
       <div class="content__favorites">
-        <app-table/>
+        <app-table :isFavorite="true" :repo="favoriteRepositories" @rowClicked="updateRow"/>
       </div>
     </div>
   </div>
@@ -35,23 +35,51 @@ export default {
     AppSearchBar
   },
   methods: {
+    // grab the first 10 Github repository matching the search value
     findRepositories(searchValue) {
+      this.clearRepositories();
       this.$http.get(this.api + searchValue).then(response => {
         const repo = response.data.items.slice(0, 10);
         this.parseData(repo);
       });
     },
+    // strip the desired properties of a Github repository
     parseData(repo) {
       for (const item of repo) {
         this.$http.get(item.tags_url).then(response => {
           this.repositories.push({
+            id: item.id,
             name: item.full_name,
             repoUrl: item.html_url,
             language: item.language,
-            releaseTag: response.data.length == 0 ? "-" : response.data[0].name
+            releaseTag: response.data.length == 0 ? "-" : response.data[0].name,
+            favorited: false
           });
         });
       }
+    },
+    // Add/remove from row if favorited
+    updateRow(id, isFavorite) {
+      if (isFavorite) {
+        let repo = this.repositories.find(x => x.id === id);
+        if (repo.favorited) {
+          repo.favorited = false;
+          this.favoriteRepositories.splice(
+            this.favoriteRepositories.indexOf(repo),
+            1
+          );
+        }
+      } else {
+        let repo = this.repositories.find(x => x.id === id);
+        if (!repo.favorited) {
+          repo.favorited = true;
+          this.favoriteRepositories.push(repo);
+        }
+      }
+    },
+    clearRepositories() {
+      this.repositories = [];
+      this.favoriteRepositories = [];
     }
   }
 };

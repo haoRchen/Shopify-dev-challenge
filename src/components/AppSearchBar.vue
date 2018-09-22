@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <input type="input" class="search__input" v-model.trim="input">
+    <input type="input" class="search__input" @keypress="onKeyPress"  @keyup="alertIfEmpty" v-model.trim="input">
     <button class="search__button" @click="onButtonClick">Search</button>
   </div>
 </template>
@@ -15,7 +15,23 @@ export default {
   },
   methods: {
     onButtonClick() {
-      this.$emit("clicked", this.input);
+      this.searchRepo();
+    },
+    // search when user hit enter
+    onKeyPress(e) {
+      if (e.which === 13) {
+        this.searchRepo();
+      }
+    },
+    // alert parent to search
+    searchRepo() {
+      this.$emit("searching", this.input);
+    },
+    // alert parent input field is empty
+    alertIfEmpty() {
+      if (!this.input.length > 0) {
+        this.$emit("emptyInputField");
+      }
     }
   }
 };
@@ -42,6 +58,7 @@ export default {
     height: 100%;
     padding: 0 10px;
     border: 1.3px solid $grey;
+    font-size: 1rem;
     @include hover-supported() {
       transition: border-color 3s ease-out;
       &:hover {
@@ -56,6 +73,8 @@ export default {
     color: $white;
     margin-left: 0.7rem;
     border: none;
+    font-size: 1rem;
+    font-weight: bold;
     @include hover-supported() {
       transition: background-color 0.3s ease-out;
       &:hover {
