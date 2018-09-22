@@ -5,6 +5,9 @@
 - Responsive and developed with a mobile first approach.
 - Meets all criteria specified from the challenge.
 
+![](/public/demo.gif)
+
+
 
 
 ## Project setup
