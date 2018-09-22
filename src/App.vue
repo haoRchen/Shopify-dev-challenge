@@ -18,7 +18,7 @@ export default {
 <style lang="scss">
 @import "./scss/styles.scss";
 #app {
-  @include font-face($font-serif);
+  font-family: $font-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -6,13 +6,6 @@
   }
 }
 
-@mixin font-face($family, $weight: null, $size: null, $style: null) {
-  font-family: $family;
-  font-weight: $weight;
-  font-size: $size;
-  font-style: $style;
-}
-
 // Media Queries
 $phone-width: 480px;
 $tablet-width: 950px;
