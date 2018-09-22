@@ -6,72 +6,25 @@
       <th>Latest Tag</th>
       <th></th>
     </tr>
-    <!-- <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
+    <tr v-for="item in repo" :key="item.name">
+      <td><a :href="item.url">{{item.name}}</a></td>
+      <td>{{item.language}}</td>
+      <td>{{item.releaseTag}}</td>
       <td><a href="">Add</a></td>
     </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr>
-    <tr>
-      <td>christopherbatty/SDFGen</td>
-      <td>Ruby</td>
-      <td>V1.9</td>
-      <td>Add</td>
-    </tr> -->
   </table>
 </template>
 
 <script>
 export default {
-  name: "AppTable"
+  name: "AppTable",
+  props: {
+    repo: {
+      type: Array,
+      required: false,
+      default: () => []
+    }
+  }
 };
 </script>
 

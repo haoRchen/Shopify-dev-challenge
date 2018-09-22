@@ -1,13 +1,23 @@
 <template>
   <div class="search">
-    <input type="input" class="search__input">
-    <button class="search__button">Search</button>
+    <input type="input" class="search__input" v-model.trim="input">
+    <button class="search__button" @click="onButtonClick">Search</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SearchBar"
+  name: "SearchBar",
+  data() {
+    return {
+      input: ""
+    };
+  },
+  methods: {
+    onButtonClick() {
+      this.$emit("clicked", this.input);
+    }
+  }
 };
 </script>
 

@@ -6,8 +6,8 @@
     <div class="content__data ">
       <!-- Column for displaying the table for fetched results -->
       <div class="content__results">
-        <app-search-bar/>
-        <app-table/>
+        <app-search-bar @clicked="findRepositories"/>
+        <app-table :repo="repositories"/>
       </div>
       <!-- Column for displaying the table for favorited repository -->
       <div class="content__favorites">
@@ -23,9 +23,36 @@ import AppSearchBar from "./AppSearchBar";
 
 export default {
   name: "MainPage",
+  data() {
+    return {
+      api: "https://api.github.com/search/repositories?q=",
+      repositories: [],
+      favoriteRepositories: []
+    };
+  },
   components: {
     AppTable,
     AppSearchBar
+  },
+  methods: {
+    findRepositories(searchValue) {
+      this.$http.get(this.api + searchValue).then(response => {
+        const repo = response.data.items.slice(0, 10);
+        this.parseData(repo);
+      });
+    },
+    parseData(repo) {
+      for (const item of repo) {
+        this.$http.get(item.tags_url).then(response => {
+          this.repositories.push({
+            name: item.full_name,
+            repoUrl: item.html_url,
+            language: item.language,
+            releaseTag: response.data.length == 0 ? "-" : response.data[0].name
+          });
+        });
+      }
+    }
   }
 };
 </script>
