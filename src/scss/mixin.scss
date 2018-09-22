@@ -1,0 +1,37 @@
+@mixin hover-supported {
+  @media not all and (hover: none) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Media Queries
+$phone-width: 480px;
+$tablet-width: 950px;
+$desktop-width: 1024px;
+$large-desktop: 1800px;
+
+@mixin phone {
+  @media (min-width: #{$phone-width}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: #{$large-desktop}) {
+    @content;
+  }
+}

@@ -1,4 +1,11 @@
-# challenge
+# Shopify Web Developer Challenge 2019 Winter
+
+## Project Detail
+- Technologies: Vue.js with Cli 3, CSS3 with Sass preprocessor and JavaScript. 
+- Responsive and developed with a mobile first approach.
+- Meets all criteria specified from the challenge.
+
+
 
 ## Project setup
 ```
